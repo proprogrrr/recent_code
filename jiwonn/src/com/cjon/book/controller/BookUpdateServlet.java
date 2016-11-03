@@ -32,15 +32,23 @@ public class BookUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 입력받고
 		String isbn = request.getParameter("isbn");
+		String title = request.getParameter("title");
+		String author = request.getParameter("author");
 		String price = request.getParameter("price");
 		String callback = request.getParameter("callback");
 		// 2. 로직처리
+		//BookService service1 = new BookService();
+		//BookService service2 = new BookService();
 		BookService service = new BookService();
-		boolean result = service.updateBook(isbn,price);
+	
+		boolean result = service.updateBook(isbn,title,author,price);
+		
+		
 		// 3. 출력처리
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
 		out.println(callback + "(" + result + ")");
+		
 		out.flush();
 		out.close();
 	}

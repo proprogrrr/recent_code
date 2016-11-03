@@ -49,18 +49,24 @@ public class BookDAO {
 		return result;
 	}
 
-	public boolean update(String isbn, String price) {
+	public boolean update(String isbn, String title, String author, String price) {
 		Connection con = DBTemplate.getConnection();
 		PreparedStatement pstmt = null;
 		
 		boolean result = false;
 		try {
 			System.out.println(isbn);
+			System.out.println(title);
+			System.out.println(author);
 			System.out.println(price);
-			String sql = "update book set bprice=? where bisbn=?";
+			
+			String sql = "update book set btitle=?, bauthor=?, bprice=? where bisbn=?";
+		
 			pstmt= con.prepareStatement(sql);
-			pstmt.setInt(1, Integer.parseInt(price));
-			pstmt.setString(2, isbn);
+			pstmt.setString(1, title);
+			pstmt.setString(2, author);
+			pstmt.setInt(3, Integer.parseInt(price));
+			pstmt.setString(4, isbn);
 			
 			int count = pstmt.executeUpdate();
 			// 결과값은 영향을 받은 레코드의 수

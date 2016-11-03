@@ -3,6 +3,6 @@
     <!-- Default set of monitored resources -->
 	<WatchedResource>WEB-INF/web.xml</WatchedResource>
 	<Resource type="javax.sql.DataSource" name="jdbc/mySQLDB" auth="Container"
-		username="JQuery" password="JQuery" driverClassName="com.mysql.jdbc.Driver"
+		username="jQu" password="jQu" driverClassName="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://127.0.0.1:3306/library?characterEncoding=UTF-8" />
 </Context>
