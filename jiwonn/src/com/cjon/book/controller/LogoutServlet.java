@@ -8,20 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
 
 import com.cjon.book.service.BookService;
 
 /**
  * Servlet implementation class BookUpdateServlet
  */
-@WebServlet("/bookUpdate")
-public class BookUpdateServlet extends HttpServlet {
+@WebServlet("/logout")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookUpdateServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,27 +33,27 @@ public class BookUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1. 입력받고
-		String isbn = request.getParameter("isbn");
-		String title = request.getParameter("title");
-		String author = request.getParameter("author");
-		String price = request.getParameter("price");
+		
+		HttpSession session = request.getSession(true);
+		if(session!=null){
+			session.invalidate();
+			System.out.println("세션이 종료되었습니다.");
+
+		}else{
+			System.out.println("세션이 존재하지 않습니다.");
+		}
+		
+		
+		
 		String callback = request.getParameter("callback");
-		// 2. 로직처리
-		//BookService service1 = new BookService();
-		//BookService service2 = new BookService();
-		BookService service = new BookService();
+		boolean result = true;
 	
-		String result = service.updateBook(isbn,title,author,price);
-		
-		
-		// 3. 출력처리
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
 		out.println(callback + "(" + result + ")");
-		
 		out.flush();
 		out.close();
+		
 	}
 
 	/**
@@ -62,12 +65,3 @@ public class BookUpdateServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
-
-

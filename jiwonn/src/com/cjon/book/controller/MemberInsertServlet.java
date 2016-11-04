@@ -14,14 +14,14 @@ import com.cjon.book.service.BookService;
 /**
  * Servlet implementation class BookUpdateServlet
  */
-@WebServlet("/bookUpdate")
-public class BookUpdateServlet extends HttpServlet {
+@WebServlet("/memberInsert")
+public class MemberInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookUpdateServlet() {
+    public MemberInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,25 +30,22 @@ public class BookUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1. 입력받고
-		String isbn = request.getParameter("isbn");
-		String title = request.getParameter("title");
-		String author = request.getParameter("author");
-		String price = request.getParameter("price");
+		// 책 이미지, 책제목, 저자, 가격,등록하기
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+		String email = request.getParameter("email");
 		String callback = request.getParameter("callback");
+		
+		System.out.println(id);
+		System.out.println(password);
+		System.out.println(email);
 		// 2. 로직처리
-		//BookService service1 = new BookService();
-		//BookService service2 = new BookService();
 		BookService service = new BookService();
-	
-		String result = service.updateBook(isbn,title,author,price);
-		
-		
+		Boolean result = service.insertMember(id,password,email);
 		// 3. 출력처리
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
 		out.println(callback + "(" + result + ")");
-		
 		out.flush();
 		out.close();
 	}
@@ -62,12 +59,3 @@ public class BookUpdateServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
-
-

@@ -17,15 +17,57 @@ public class BookService {
 		return result;
 	}
 
-	public boolean updateBook(String isbn, String title, String author, String price) {
+	public String updateBook(String isbn, String title, String author, String price) {
 		// TODO Auto-generated method stub
 		BookDAO dao = new BookDAO();
-		boolean result = dao.update(isbn,title,author,price);	
+		String result = dao.update(isbn,title,author,price);	
+		return result;
+	}
+	public boolean deleteBook(String isbn) {
+		// TODO Auto-generated method stub
+		BookDAO dao = new BookDAO();
+		boolean result = dao.deleteBook(isbn);	
 		return result;
 	}
 	
+	public String insertBook(String isbn, String img, String title, String author, String price) {
+		// TODO Auto-generated method stub
+		BookDAO dao = new BookDAO();
+		String result = dao.insertBook(isbn,img,title,author,price);	
+		return result;
+	}
+	
+	public String bookDetail(String isbn) {
+		// TODO Auto-generated method stub
+		System.out.println("in service : "+isbn);
+		BookDAO dao = new BookDAO();
+		String result = dao.info(isbn);	
+		return result;
+	}
 
+    public Boolean insertMember(String id, String password, String email) {
+		
+		BookDAO dao = new BookDAO();
+		boolean result = dao.insertMem(id,password,email);
+		return result;
+	}
+	
+    
+    public Boolean login(String id, String password) {
+		
+		BookDAO dao = new BookDAO();
+		boolean result = dao.login(id,password);
+		return result;
+	}
 
+	public Boolean session(String id, String password) {
+	
+		BookDAO dao = new BookDAO();
+		boolean result = dao.session(id,password);
+		return result;
+	}
+
+	
 }
 
 

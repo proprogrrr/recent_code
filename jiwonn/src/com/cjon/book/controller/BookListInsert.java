@@ -12,36 +12,34 @@ import javax.servlet.http.HttpServletResponse;
 import com.cjon.book.service.BookService;
 
 /**
- * Servlet implementation class BookUpdateServlet
+ * Servlet implementation class BookListServlet
  */
-@WebServlet("/bookUpdate")
-public class BookUpdateServlet extends HttpServlet {
+@WebServlet("/bookInsert")
+public class BookListInsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookUpdateServlet() {
+    public BookListInsert() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1. 입력받고
+	
+		
 		String isbn = request.getParameter("isbn");
+		String img = request.getParameter("img");
 		String title = request.getParameter("title");
 		String author = request.getParameter("author");
 		String price = request.getParameter("price");
 		String callback = request.getParameter("callback");
-		// 2. 로직처리
-		//BookService service1 = new BookService();
-		//BookService service2 = new BookService();
+		
 		BookService service = new BookService();
 	
-		String result = service.updateBook(isbn,title,author,price);
+		String result = service.insertBook(isbn,img,title,author,price);
 		
 		
 		// 3. 출력처리
@@ -51,6 +49,7 @@ public class BookUpdateServlet extends HttpServlet {
 		
 		out.flush();
 		out.close();
+
 	}
 
 	/**

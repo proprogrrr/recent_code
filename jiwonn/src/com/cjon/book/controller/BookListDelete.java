@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.cjon.book.service.BookService;
 
 /**
- * Servlet implementation class BookUpdateServlet
+ * Servlet implementation class BookListServlet
  */
-@WebServlet("/bookUpdate")
-public class BookUpdateServlet extends HttpServlet {
+@WebServlet("/bookDelete")
+public class BookListDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookUpdateServlet() {
+    public BookListDelete() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,24 +31,20 @@ public class BookUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 입력받고
-		String isbn = request.getParameter("isbn");
-		String title = request.getParameter("title");
-		String author = request.getParameter("author");
-		String price = request.getParameter("price");
-		String callback = request.getParameter("callback");
-		// 2. 로직처리
-		//BookService service1 = new BookService();
-		//BookService service2 = new BookService();
-		BookService service = new BookService();
-	
-		String result = service.updateBook(isbn,title,author,price);
-		
-		
+		String isbn = request.getParameter("isbn"); // 책에 대한 keyword를 받는부분
+		String callback = request.getParameter("callback"); // JSONP처리를 위해서 사용
+		// 2. 로직처리하고(DB처리포함)
+		// Servlet은 입력을 받고 출력에대한 지정을 담당. 로직처리는 하지 않아요!!
+		// 로직처리하는 객체를 우리가 일반적으로 Service객체라고 불러요! 이놈을 만들어서 일을 시켜서
+		// 결과를 받아오는 구조로 만들어 보아요!
+		// 로직처리를 하기 위해서 일단 Service객체를 하나 생성합니다.
+		BookService service = new BookService();		
+		boolean result = service.deleteBook(isbn);
+		// 결과로 가져올건..DB 처리한 후 나온 책에 대한 JSON data		
 		// 3. 출력처리
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
 		out.println(callback + "(" + result + ")");
-		
 		out.flush();
 		out.close();
 	}
