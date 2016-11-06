@@ -15,67 +15,56 @@ import org.json.simple.JSONObject;
 import com.cjon.book.service.BookService;
 
 /**
- * Servlet implementation class BookUpdateServlet
+ * Servlet implementation class BookListServlet
  */
-@WebServlet("/session")
-public class SessionServlet extends HttpServlet {
+@WebServlet("/delSessionCheck")
+public class DelSessionCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SessionServlet() {
+  
+    public DelSessionCheck() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//1. 입력받고
 		String callback = request.getParameter("callback");
 		String check = request.getParameter("quit");
-		
-		System.out.println("세션 체크 시작");
-		
+		String email = null;
+		System.out.println("세션체크하러 들어왔ㅆ스빈다.");
+		String result = null;
 		HttpSession session = request.getSession(true);
-		String sessionid = (String) session.getAttribute("id");
 		
 		
-		if(check!=null){
-			if(check.equals("t")){
-				session.invalidate();
-				System.out.println("세션을 만료시킵니다.");
-			}
-		}
-	
-	
-		boolean result = true;
-			
-		if(id!=null){
-			result = true;
-			System.out.println("세션이 존재합니다.");
+		if(session!=null){
+			 email = (String) session.getAttribute("email");
+			 JSONObject obj = new JSONObject();
+			 obj.put("email", email);
+			 result = obj.toJSONString();
 		}else{
-			result = false;
-			System.out.println("세션이 존재하지 않습니다!!");
+			
+			JSONObject obj = new JSONObject();
+			 obj.put("email", null);
+			 result = obj.toJSONString();
+
 		}
 		
 		
-	
+		//3.출력처리
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
-		out.println(callback + "(" + result + ")");
+		out.println(callback+"("+result+")");
 		out.flush();
 		out.close();
+		
+		System.out.println(result+"세션 후후후후~ ");
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+		
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

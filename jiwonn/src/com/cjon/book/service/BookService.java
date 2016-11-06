@@ -53,6 +53,16 @@ public class BookService {
 	}
 	
     
+	public String selectOneMember(String id){
+		
+		BookDAO dao = new BookDAO();
+		String result = dao.selectOneMember(id);
+		return result;
+		
+	}
+    
+    
+    
     public Boolean login(String id, String password) {
 		
 		BookDAO dao = new BookDAO();
@@ -67,6 +77,56 @@ public class BookService {
 		return result;
 	}
 
+	
+    public boolean commentInsert(String isbn, String title, String author, String password, String id, String text, String content,String img){
+		
+		BookDAO dao = new BookDAO();
+		boolean result = dao.commentInsert(isbn,title,author,password,id,text,content,img);
+		return result;
+		
+	}
+	
+	public String commentList(String reviewisbn){
+		
+		BookDAO dao = new BookDAO();
+		String result = dao.commentList(reviewisbn);
+		return result;
+		
+	}
+	
+public String commentContent(String cid){
+		
+		BookDAO dao = new BookDAO();
+		String result = dao.commentContent(cid);
+		return result;
+		
+	}
+	
+	public String commentKeywordList(String search){
+		
+		BookDAO dao = new BookDAO();
+		String result = dao.commentKeywordList(search);
+		return result;
+		
+	}
+	
+	public boolean deleteComment(String cid){
+		
+		BookDAO dao = new BookDAO();
+		boolean result = dao.deleteComment(cid);
+		return result;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
 
